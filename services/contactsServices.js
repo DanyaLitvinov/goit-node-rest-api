@@ -5,7 +5,6 @@ import * as fs from "fs/promises";
 const contactsPath = path.join("db", "contacts.json");
 
 export async function listContacts() {
-  //Повертає масив контактів.
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -14,9 +13,7 @@ export async function listContacts() {
     console.log("Error: ", err);
   }
 }
-
 export async function getContact(contactId) {
-  //Повертає об'єкт контакту з таким id. Повертає null, якщо контакт з таким id не знайдений.
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -28,9 +25,7 @@ export async function getContact(contactId) {
     console.log("Error: ", err);
   }
 }
-
 export async function removeContact(contactId) {
-  // Повертає об'єкт видаленого контакту. Повертає null, якщо контакт з таким id не знайдений.
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -46,9 +41,7 @@ export async function removeContact(contactId) {
     console.log("Error: ", err);
   }
 }
-
 export async function addContact(name, email, phone) {
-  //Повертає об'єкт доданого контакту (з id).
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -61,9 +54,7 @@ export async function addContact(name, email, phone) {
     console.log("Error: ", err);
   }
 }
-
 export async function updateContact(id, body) {
-  // Оновлює дані контакта
   try {
     const contacts = await listContacts();
     const index = contacts.findIndex((contact) => id === contact.id);
