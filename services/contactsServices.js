@@ -5,6 +5,7 @@ import * as fs from "fs/promises";
 const contactsPath = path.join("db", "contacts.json");
 
 export async function listContacts() {
+  
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -13,7 +14,9 @@ export async function listContacts() {
     console.log("Error: ", err);
   }
 }
+
 export async function getContact(contactId) {
+  
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -25,7 +28,9 @@ export async function getContact(contactId) {
     console.log("Error: ", err);
   }
 }
+
 export async function removeContact(contactId) {
+ 
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -41,7 +46,9 @@ export async function removeContact(contactId) {
     console.log("Error: ", err);
   }
 }
+
 export async function addContact(name, email, phone) {
+  
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -54,7 +61,9 @@ export async function addContact(name, email, phone) {
     console.log("Error: ", err);
   }
 }
+
 export async function updateContact(id, body) {
+  
   try {
     const contacts = await listContacts();
     const index = contacts.findIndex((contact) => id === contact.id);

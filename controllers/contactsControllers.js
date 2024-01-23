@@ -1,6 +1,7 @@
 import HttpError from "../helpers/HttpError.js";
 import { createContactSchema, updateContactSchema } from "../schemas/contactsSchemas.js";
 import { addContact, getContact, listContacts, removeContact, updateContact } from "../services/contactsServices.js";
+
 export const getAllContacts = async (req, res) => {
     try {
         const result = await listContacts();
@@ -9,11 +10,12 @@ export const getAllContacts = async (req, res) => {
         HttpError(500, "Server error!");
     }
 };
+
 export const getContactById = async (req, res, next) => {
     try {
         const result = await getContact(req.params.id);
         if (!result) {
-            throw HttpError(404); 
+            throw HttpError(404); //"Not found"
         }
 
         res.status(201).json(result)
@@ -21,11 +23,12 @@ export const getContactById = async (req, res, next) => {
         next(error)
     }
 };
+
 export const deleteContact = async (req, res, next) => {
     try {
         const result = await removeContact(req.params.id);
         if (!result) {
-            throw HttpError(404); 
+            throw HttpError(404); //"Not found"
         }
 
         res.status(201).json(result)
@@ -33,6 +36,7 @@ export const deleteContact = async (req, res, next) => {
         next(error)
     }
 };
+
 export const createContact = async (req, res, next) => {
     try {
         const { error } = createContactSchema.validate(req.body);
@@ -51,6 +55,7 @@ export const createContact = async (req, res, next) => {
         next(error)
     }
 };
+
 export const updateContactById = async (req, res, next) => {
     try {
          if (Object.keys(req.body).length ===0) {
