@@ -5,7 +5,6 @@ import * as fs from "fs/promises";
 const contactsPath = path.join("db", "contacts.json");
 
 export async function listContacts() {
-  
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -16,7 +15,6 @@ export async function listContacts() {
 }
 
 export async function getContact(contactId) {
-  
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -30,7 +28,6 @@ export async function getContact(contactId) {
 }
 
 export async function removeContact(contactId) {
- 
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -48,7 +45,6 @@ export async function removeContact(contactId) {
 }
 
 export async function addContact(name, email, phone) {
-  
   try {
     const resReadFile = await fs.readFile(contactsPath, "utf8");
     const resArr = JSON.parse(resReadFile);
@@ -63,7 +59,6 @@ export async function addContact(name, email, phone) {
 }
 
 export async function updateContact(id, body) {
-  
   try {
     const contacts = await listContacts();
     const index = contacts.findIndex((contact) => id === contact.id);
@@ -71,8 +66,16 @@ export async function updateContact(id, body) {
       return null;
     }
 
-    contacts[index] = { id, ...body };
+    // Update only the fields present in the request body
+    for (const key in body) {
+      if (Object.prototype.hasOwnProperty.call(body, key)) {
+        contacts[index][key] = body[key];
+      }
+    }
+
     await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
     return contacts[index];
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error: ", error);
+  }
 }
