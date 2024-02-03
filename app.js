@@ -1,34 +1,30 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-
-const { DB_HOST } = require("./config");
+require("dotenv").config();
 
 const mongoose = require("mongoose");
+const { DB_HOST, PORT} = process.env;
+
+const contactsRouter = require("./routes/contactsRouter.js");
+
+const app = express();
 
 mongoose
   .connect(DB_HOST)
   .then(() => {
-    console.log("Database connection successful");
-    app.listen(3000, () => {
-      console.log("Server is running. Use our API on port: 3000");
-    });
+    app.listen(PORT)
+    console.log("Database connected successfuly");
   })
-  .catch((error) => {
-    console.log(error.message);
+  .catch((err) => {
+    console.log(err.message);
     process.exit(1);
   });
 
-const authRouter = require("./routes/contactsRouter");
-const contactsRouter = require("./routes/favoriteRouter");
-
-const app = express();
-
 app.use(morgan("tiny"));
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); //підключення парсеру жсон формату
 
-app.use("/api/auth", authRouter);
 app.use("/api/contacts", contactsRouter);
 
 app.use((_, res) => {
@@ -36,6 +32,7 @@ app.use((_, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Server error" } = err;
+  const { status = 500, message = "Server error", name } = err;
   res.status(status).json({ message });
 });
+
