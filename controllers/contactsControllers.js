@@ -1,5 +1,5 @@
 const Wrapper = require("../helpers/Wrapper.js");
-const HttpError = require("../helpers/Error.js");
+const HttpError = require("../helpers/HttpError.js");
 
 const Contact = require('../models/contact.js');
 
