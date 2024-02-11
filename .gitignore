@@ -3,3 +3,7 @@ node_modules/
 .idea
 .vscode
 .DS_Store
+*.jpeg
+*.webp
+*.png
+*.jpg
