@@ -8,5 +8,4 @@ const controllerWrapper = controller => {
    };
    return func;
 };
-
 module.exports = controllerWrapper;
