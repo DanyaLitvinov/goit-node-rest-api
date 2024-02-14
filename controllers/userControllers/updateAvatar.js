@@ -4,7 +4,9 @@ const fs = require("fs/promises");
 const User = require("../../models/users");
 const HttpError = require("../../helpers/HttpError");
 const { resizeAvatar } = require("../../middlewears");
+
 const avatarsDir = path.join(__dirname, "../../", "public", "avatars");
+
 const updateAvatar = async (req, res, next) => {
   const { _id } = req.user;
 
@@ -24,4 +26,5 @@ const updateAvatar = async (req, res, next) => {
 
   res.status(200).json({ avatarURL });
 };
+
 module.exports = controllerWrapper(updateAvatar);
