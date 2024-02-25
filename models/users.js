@@ -18,6 +18,11 @@ const usersSchema = Schema(
     },
     token: String,
     avatarURL: String,
+    isVerifyed: {
+      type: Boolean,
+      default: false
+    },
+    verificationToken: String,
   },
   { versionKey: false, timestamps: true }
 );
