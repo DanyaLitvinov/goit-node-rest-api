@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const { EMAIL_API_PASSWORD, EMAIL_API_USER } = process.env;
+const { NODEMAILER_PASSWORD, NODEMAILER_USER } = process.env;
 
 const sendEmail = async ({ to, subject, html, text = "" }) => {
   try {
@@ -17,8 +17,8 @@ const sendEmail = async ({ to, subject, html, text = "" }) => {
       host: "sandbox.smtp.mailtrap.io",
       port: 2525,
       auth: {
-        user: EMAIL_API_USER,
-        pass: EMAIL_API_PASSWORD,
+        user: NODEMAILER_USER,
+        pass: NODEMAILER_PASSWORD,
       },
     });
 
@@ -30,12 +30,3 @@ const sendEmail = async ({ to, subject, html, text = "" }) => {
 };
 
 module.exports = sendEmail;
-
-// transport
-//   .sendMail(email)
-//   .then(() => {
-//     console.log("Email sent success");
-//   })
-//   .catch((e) => {
-//     console.log(e.message);
-//   });

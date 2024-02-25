@@ -1,9 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const mongoose = require("mongoose");
+
 require("dotenv").config();
 
-const mongoose = require("mongoose");
+
 const { DB_HOST, PORT } = process.env;
 
 const contactsRouter = require("./routes/contactsRouter.js");
@@ -24,11 +26,11 @@ mongoose
 
 app.use(morgan("tiny"));
 app.use(cors());
-app.use(express.json()); //підключення парсеру жсон формату
+app.use(express.json()); 
 
 app.use(express.static("public"))
 
-//endpoints
+
 app.use("/api/contacts", contactsRouter);
 app.use("/api/users", userRouter)
 
